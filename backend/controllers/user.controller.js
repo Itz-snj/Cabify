@@ -38,12 +38,12 @@ const loginUser = async (req,res) =>{
     const {email, password} = req.body;
     const user = await userModel.findOne({email: email}).select("+password");
     if(!user) {
-        return res.status(code.BAD_REQUEST).json({error: "User not found or not passed properly in the controller"});
+        return res.status(code.BAD_REQUEST).json({error: "User or Password is incorrect"});
     }
     const rehasher = await user.matchPassword(password);
     console.log(password , user.password , rehasher);
     if(!rehasher) {
-        return res.status(code.FORBIDDEN).json({error: "Password is incorrect"});
+        return res.status(code.FORBIDDEN).json({error: "User or Password is incorrect"});
     }
     const token = user.generateAuthToken();
     res.status(code.OK).json({token , user});

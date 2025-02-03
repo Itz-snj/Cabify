@@ -1,109 +1,82 @@
-# User Registration API
+# Backend Project - UBER-sheriyans
 
-## Endpoint: `/user/register`
+This is a backend project for user registration and authentication using Node.js, Express, and MongoDB.
 
-### Method: POST
+## Installation
 
-### Description
-This endpoint is used to register a new user. It validates the input data and creates a new user in the database if the data is valid.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/UBER-sheriyans.git
+    cd UBER-sheriyans/backend
+    ```
 
-### Request Body
-The request body should be a JSON object with the following fields:
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
 
-- `name`: An object containing:
-  - `firstname` (string, required, minimum length: 3)
-  - `middlename` (string, optional)
-  - `lastname` (string, required)
-- `email` (string, required, must be a valid email)
-- `password` (string, required, minimum length: 6)
+3. Create a `.env` file in the [backend](http://_vscodecontentref_/0) directory and add:
+    ```properties
+    PORT=4000
+    MONGO_URI=your_mongodb_connection_string
+    JWT_SECRET=your_jwt_secret
+    ```
 
-Example:
-```json
-{
-  "name": {
-    "firstname": "John",
-    "middlename": "Doe",
-    "lastname": "Smith"
-  },
-  "email": "john.doe@example.com",
-  "password": "password123"
-}
-```
+4. Start the server:
+    ```bash
+    npm start
+    ```
 
-### Responses
+## API Endpoints
 
-#### Success (201 Created)
-- **Status Code**: 201
-- **Response Body**:
-  ```json
-  {
-    "token": "jwt_token",
-    "user": {
-      "_id": "user_id",
-      "name": {
-        "firstname": "John",
-        "middlename": "Doe",
-        "lastname": "Smith"
-      },
-      "email": "john.doe@example.com"
+### User Registration
+- **URL:** `/user/register`
+- **Method:** `POST`
+- **Body:**
+    ```json
+    {
+        "name": {
+            "firstname": "John",
+            "middlename": "Doe",
+            "lastname": "Smith"
+        },
+        "email": "john.doe@example.com",
+        "password": "yourpassword"
     }
-  }
-  ```
+    ```
 
-#### Validation Errors (400 Bad Request)
-- **Status Code**: 400
-- **Response Body**:
-  ```json
-  {
-    "errors": [
-      {
-        "msg": "Please enter a valid email",
-        "param": "email",
-        "location": "body"
-      },
-      {
-        "msg": "Password must be atleast 6 characters",
-        "param": "password",
-        "location": "body"
-      },
-      {
-        "msg": "First name must be atleast 3 characters",
-        "param": "name.firstname",
-        "location": "body"
-      }
-    ]
-  }
-  ```
+### User Login
+- **URL:** `/user/login`
+- **Method:** `POST`
+- **Body:**
+    ```json
+    {
+        "email": "john.doe@example.com",
+        "password": "yourpassword"
+    }
+    ```
 
-#### User Already Exists (400 Bad Request)
-- **Status Code**: 400
-- **Response Body**:
-  ```json
-  {
-    "error": "User already exists"
-  }
-  ```
+## Environment Variables
 
-#### Server Error (500 Internal Server Error)
-- **Status Code**: 500
-- **Response Body**:
-  ```json
-  {
-    "error": "User registration failed: error_message"
-  }
-  ```
+- `PORT`: Server port.
+- `MONGO_URI`: MongoDB connection string.
+- `JWT_SECRET`: JWT secret key.
 
-### Example Request
-```bash
-curl -X POST http://localhost:4000/user/register \
--H "Content-Type: application/json" \
--d '{
-  "name": {
-    "firstname": "John",
-    "middlename": "Doe",
-    "lastname": "Smith"
-  },
-  "email": "john.doe@example.com",
-  "password": "password123"
-}'
-```
+## Project Structure
+
+```plaintext
+backend/
+├── controllers/
+│   └── user.controller.js
+├── db/
+│   └── db.js
+├── models/
+│   └── user.model.js
+├── routes/
+│   └── user.routes.js
+├── services/
+│   └── user.service.js
+├── .env
+├── app.js
+├── server.js
+└── package.json
