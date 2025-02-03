@@ -80,3 +80,6 @@ backend/
 ├── app.js
 ├── server.js
 └── package.json
+
+
+Added a shell script to append files in github and stage it from local to remote git repository
