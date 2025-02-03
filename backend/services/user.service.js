@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import userModel from "../models/user.model.js";
 const CreateNewUser = async (
     user
@@ -8,7 +7,6 @@ const CreateNewUser = async (
         if (!user.firstname || !user.lastname || !user.email || !user.password) {
             throw new Error("Please provide all the required fields: firstname, lastname, email, and password.");
         }
-        const hashedPassword = await bcrypt.hash(user.password, 10);
         const newuser = await userModel.create({
             name: {
                 firstname : user.firstname,
@@ -16,7 +14,7 @@ const CreateNewUser = async (
                 lastname : user.lastname,
             },
             email : user.email,
-            password: hashedPassword,
+            password: user.password,
         });
         return newuser;
     } catch (error) {

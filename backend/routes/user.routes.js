@@ -9,5 +9,8 @@ router.post('/register', [
 ] , 
     userController.registerUser
 )
-
+router.post('/login', [
+    body('email').isEmail().withMessage('Please enter a valid email'),
+    body('password').isLength({min: 1}).withMessage('Field is empty')
+], userController.loginUser);
 export default router;

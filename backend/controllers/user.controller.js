@@ -2,15 +2,17 @@ import userModel from "../models/user.model.js";
 import CreateNewUser from "../services/user.service.js";
 import code from "http-status-codes";
 import { validationResult } from "express-validator";
-const registerUser = async (req, res , next) => {
+
+const registerUser = async (req, res ) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         return res.status(code.BAD_REQUEST).json({errors: errors.array()});
     }
     const {name, email, password} = req.body;
-    const hashedPassword = await userModel.hashPassword(password);
-    console.log(name , email , password);
-    if(userModel.findOne({email: email})) {
+    //const hashedPassword = await userModel.hashPassword(password);
+    console.log("This is from the controller : " , name , email , password);
+    const userExists = await userModel.findOne({email: email});
+    if(userExists){
         return res.status(code.BAD_REQUEST).json({error: "User already exists"});
     }
     try {
@@ -19,7 +21,7 @@ const registerUser = async (req, res , next) => {
             middlename : name.middlename,
             lastname : name.lastname,
             email : email,
-            password: hashedPassword,
+            password: await userModel.hashPassword(password),
         });
         const token = user.generateAuthToken();
         res.status(code.CREATED).json({token , user});
@@ -27,4 +29,23 @@ const registerUser = async (req, res , next) => {
         throw new Error(`User registration failed: ${error.message}`);
     }
 }
-export default {registerUser};
+const loginUser = async (req,res) =>{
+    const result = validationResult(req);
+    if(!result.isEmpty()) {
+        console.log("Error in validation, from controller");
+        return res.status(code.BAD_REQUEST).json({errors: result.array()});
+    }
+    const {email, password} = req.body;
+    const user = await userModel.findOne({email: email}).select("+password");
+    if(!user) {
+        return res.status(code.BAD_REQUEST).json({error: "User not found or not passed properly in the controller"});
+    }
+    const rehasher = await user.matchPassword(password);
+    console.log(password , user.password , rehasher);
+    if(!rehasher) {
+        return res.status(code.FORBIDDEN).json({error: "Password is incorrect"});
+    }
+    const token = user.generateAuthToken();
+    res.status(code.OK).json({token , user});
+}
+export default {registerUser , loginUser};

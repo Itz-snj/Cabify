@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bycrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
@@ -41,11 +41,15 @@ userSchema.methods.generateAuthToken = function() {
     return token;
 }
 userSchema.methods.matchPassword = async function(enteredPassword) {
-    const compare =  await bycrypt.compare(enteredPassword, this.password);
-    return compare;
+    try {
+        return await bcrypt.compare(enteredPassword, this.password);
+      } catch (error) {
+        console.error("Error comparing passwords:", error.message);
+        return false;
+      }
 }
 userSchema.statics.hashPassword = async function(password) {
-    const hashedPass =  await bycrypt.hash(password, 10);
+    const hashedPass =  await bcrypt.hash(password, 10);
     return hashedPass;
 }
 const User = mongoose.model("user", userSchema);
