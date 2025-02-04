@@ -2,6 +2,7 @@ import userModel from "../models/user.model.js";
 import CreateNewUser from "../services/user.service.js";
 import code from "http-status-codes";
 import { validationResult } from "express-validator";
+import tokenTimerModel from "../models/blacklist.token.model.js";
 
 const registerUser = async (req, res ) => {
     const errors = validationResult(req);
@@ -46,6 +47,20 @@ const loginUser = async (req,res) =>{
         return res.status(code.FORBIDDEN).json({error: "User or Password is incorrect"});
     }
     const token = user.generateAuthToken();
+    res.cookie("token", token); // cookie set krlam
     res.status(code.OK).json({token , user});
 }
-export default {registerUser , loginUser};
+const getUserProfile = async (req, res) => {
+    try {
+        res.status(code.OK).json(req.user);
+    } catch (error) {
+        res.status(code.BAD_REQUEST).json({error: error.message});
+    }
+}
+const logoutUser = async (req, res) => {
+    res.clearCookie("token");
+    const token = req.cookies.token || req.header('Authorization')?.split(' ')[1];
+    await tokenTimerModel.create({token}); // token taake blacklist korlam
+    res.status(code.OK).json({message: "Logged out successfully"});
+}
+export default {registerUser , loginUser , getUserProfile , logoutUser};
