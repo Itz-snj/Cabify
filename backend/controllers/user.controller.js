@@ -10,8 +10,6 @@ const registerUser = async (req, res ) => {
         return res.status(code.BAD_REQUEST).json({errors: errors.array()});
     }
     const {name, email, password} = req.body;
-    //const hashedPassword = await userModel.hashPassword(password);
-    console.log("This is from the controller : " , name , email , password);
     const userExists = await userModel.findOne({email: email});
     if(userExists){
         return res.status(code.BAD_REQUEST).json({error: "User already exists"});
