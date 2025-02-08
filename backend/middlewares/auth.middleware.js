@@ -1,10 +1,12 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
+import Captain from '../models/captain.model.js';
 import blacklistTokenModel from '../models/blacklist.token.model.js';
+import code from 'http-status-codes';
 const authUser = async (req, res, next) => {
     const token = req.cookies.token || req.header('Authorization')?.split(' ')[1];// Get token from cookies or headers, and when we use the authorization header, we split it to get the token only without the Bearer keyword
     // console.log(token);
-    if (!token) return res.status(401).json({ error: 'Unauthorized' });
+    if (!token) return res.status(code.FORBIDDEN).json({ error: 'Unauthorized' });
     const isTokenBlacklisted = await blacklistTokenModel.findOne({ token: token });
     if (isTokenBlacklisted) return res.status(401).json({ error: 'Unauthorized' });
     try {
@@ -13,7 +15,22 @@ const authUser = async (req, res, next) => {
         req.user = user; // user ta req.user e store korlam
         return next();
     } catch (error) {
-        res.status(401).json({ error: 'Unauthorized error' });
+        res.status(code.FORBIDDEN).json({ error: 'Unauthorized error' });
     }
 }
-export default {authUser};   
+const authCaptain = async (req, res, next) => {
+    const token = req.cookies.token || req.header('Authorization')?.split(' ')[1];
+    if (!token) return res.status(401).json({ error: 'Unauthorized' });
+    const isTokenBlacklisted = await blacklistTokenModel.findOne({ token: token });
+    if (isTokenBlacklisted) return res.status(code.FORBIDDEN).json({ error: 'Unauthorized' });
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const captain = await Captain.findOne(decoded._id);
+        req.captain = captain;
+        return next();
+    } catch (error) {
+        res.status(code.FORBIDDEN).json({ error: 'Unauthorized error' });
+    }
+}
+
+export default {authUser , authCaptain};   

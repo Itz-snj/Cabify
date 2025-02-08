@@ -16,5 +16,13 @@ router.post('/register', [
         return true;
     }),
     body('vehicle.vehicleNumber').isNumeric().withMessage('Vehicle number is required'),
-], captainController.registerUser);
+], captainController.registerCaptain);
+
+router.post('/login', [
+    body('email').isEmail().withMessage('Please enter a valid email'),
+    body('password').isLength({ min: 1 }).withMessage('Field is empty')
+], captainController.loginCaptain);
+
+router.post('/logout', captainController.logoutCaptain);
+router.get('/profile', captainController.getCaptainProfile);
 export default router;

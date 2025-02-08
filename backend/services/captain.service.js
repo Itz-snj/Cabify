@@ -27,5 +27,5 @@ const CreateNewCaptain = async (captain) => {
         throw new Error(error);
     }
 }
-const loginCaptain = async (captain) => {}
+
 export default {CreateNewCaptain};
