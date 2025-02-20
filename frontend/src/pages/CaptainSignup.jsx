@@ -4,7 +4,7 @@ const CaptainSignUp = () => {
     return (
         <div>
             <h1>Welcome to the captain sign-up</h1>
-        </div>
+        </div>  
     );
 };
 
