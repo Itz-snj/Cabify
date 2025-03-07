@@ -1,5 +1,8 @@
 # Hey, Welcome to Apertre 2.0! 👋
 
+It is an open source event, make sure to follow the issue tags before commiting and also make sure to join the discord server.
+https://discord.gg/A9QpVUazNC 
+
 # FullStack Project - Cab Booking System 
 
 This is a full-stack project for a cab booking system. It includes both the frontend and backend components.
