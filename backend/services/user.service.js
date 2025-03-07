@@ -1,7 +1,5 @@
 import userModel from "../models/user.model.js";
-const CreateNewUser = async (
-    user
-) => {
+const CreateNewUser = async ( user) => {
     try {
         // console.log("Data from the service section" , user);
         if (!user.firstname || !user.lastname || !user.email || !user.password) {

@@ -13,7 +13,7 @@ router.post('/register', [
 router.post('/login', [
     body('email').isEmail().withMessage('Please enter a valid email'),
     body('password').isLength({min: 1}).withMessage('Field is empty')
-], userController.loginUser);
+], auth.handleLoginTokens, userController.loginUser);
 router.get('/profile', auth.authUser,userController.getUserProfile);
 router.get('/logout', auth.authUser, userController.logoutUser);
 export default router;
