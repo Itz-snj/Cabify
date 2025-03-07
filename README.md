@@ -1,6 +1,6 @@
-# Backend Project - Cab Booking System
+# FullStack Project - Cab Booking System
 
-This is a backend project for user registration and authentication using Node.js, Express, and MongoDB.
+This is a full-stack project for a cab booking system. It includes both the frontend and backend components.
 
 ## Installation
 
@@ -64,22 +64,55 @@ This is a backend project for user registration and authentication using Node.js
 
 ## Project Structure
 
-```plaintext
-backend/
-├── controllers/
-│   └── user.controller.js
-├── db/
-│   └── db.js
-├── models/
-│   └── user.model.js
-├── routes/
-│   └── user.routes.js
-├── services/
-│   └── user.service.js
-├── .env
-├── app.js
-├── server.js
-└── package.json
+```
+FullStack1/
+├── backend/
+│   ├── controllers/
+│   │   ├── user.controller.js
+│   │   └── captain.controller.js
+│   ├── db/
+│   │   └── db.js
+│   ├── middlewares/
+│   │   └── auth.middleware.js
+│   ├── models/
+│   │   ├── user.model.js
+│   │   ├── captain.model.js
+│   │   └── blacklist.token.model.js
+│   ├── routes/
+│   │   ├── user.routes.js
+│   │   └── captain.routes.js
+│   ├── services/
+│   │   └── user.service.js
+│   ├── .env
+│   ├── app.js
+│   ├── server.js
+│   └── package.json
+│
+├── frontend/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── api/
+│   │   │   └── api.js
+│   │   ├── components/
+│   │   │   ├── signup.jsx
+│   │   │   └── ui/
+│   │   │       ├── input.jsx
+│   │   │       └── label.jsx
+│   │   ├── lib/
+│   │   │   └── utils.js
+│   │   ├── pages/
+│   │   │   └── UserSignUp.jsx
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── .env
+│   ├── index.html
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── vite.config.js
+│
+└── README.md
+```
 
 
 Added a shell script to append files in github and stage it from local to remote git repository
