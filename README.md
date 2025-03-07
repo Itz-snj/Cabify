@@ -1,4 +1,4 @@
-# Backend Project - UBER-sheriyans
+# Backend Project - Cab Booking System
 
 This is a backend project for user registration and authentication using Node.js, Express, and MongoDB.
 
@@ -6,8 +6,8 @@ This is a backend project for user registration and authentication using Node.js
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/UBER-sheriyans.git
-    cd UBER-sheriyans/backend
+    git clone https://github.com/Itz-snj/Fullstack1.git
+    cd Fullstack1/backend
     ```
 
 2. Install dependencies:
