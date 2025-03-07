@@ -27,7 +27,7 @@ const Navbar = () => {
                             <li><a href="/contact" className="text-gray-300 hover:text-white transition-colors duration-300">Contact</a></li>
                         </ul>
                         <div>
-                            <a href="/UserLogin" className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300">Get Started</a>
+                            <a href="/signup" className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300">Get Started</a>
                         </div>
                     </div>
 
