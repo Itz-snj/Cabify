@@ -58,7 +58,11 @@ commit.sh
 /frontend/.vite
 /frontend/dist
 /frontend/build
-
+/frontend/node_modules
+/frontend/pnpm-lock.yaml
+/frontend/.env
+/frontend/package-lock.json
 # Backend specific
 /backend/dist
 /backend/build
+
