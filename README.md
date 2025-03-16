@@ -7,6 +7,12 @@ https://discord.gg/A9QpVUazNC
 
 This is a full-stack project for a cab booking system. It includes both the frontend and backend components.
 
+# Mentor
+## Vedansh Jain
+- Linkedin: [link](https://www.linkedin.com/in/vedanshcode/)
+- Role: Project Mentor
+- Contact: For any queries related to the project, feel free to reach out on Discord or create an issue on GitHub.
+
 ## Installation
 
 1. Clone the repository:
