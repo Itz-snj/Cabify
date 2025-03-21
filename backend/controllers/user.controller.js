@@ -1,5 +1,6 @@
 import userModel from "../models/user.model.js";
 import CreateNewUser from "../services/user.service.js";
+import logger from "../utils/logger.js";
 import code from "http-status-codes";
 import { validationResult } from "express-validator";
 import tokenTimerModel from "../models/blacklist.token.model.js";
@@ -31,7 +32,7 @@ const registerUser = async (req, res ) => {
 const loginUser = async (req,res) =>{
     const result = validationResult(req);
     if(!result.isEmpty()) {
-        console.log("Error in validation, from controller");
+        logger.log("Error in validation, from controller");
         return res.status(code.BAD_REQUEST).json({errors: result.array()});
     }
     const {email, password} = req.body;
@@ -40,7 +41,7 @@ const loginUser = async (req,res) =>{
         return res.status(code.BAD_REQUEST).json({error: "User or Password is incorrect"});
     }
     const rehasher = await user.matchPassword(password);
-    console.log(password , user.password , rehasher);
+    logger.log("Password verification",password , user.password, rehasher);
     if(!rehasher) {
         return res.status(code.FORBIDDEN).json({error: "User or Password is incorrect"});
     }

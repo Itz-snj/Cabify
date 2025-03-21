@@ -2,6 +2,7 @@ import captainModel from "../models/captain.model.js";
 import CaptainService from "../services/captain.service.js";
 import { validationResult } from "express-validator";
 import blacklistTokenModel from "../models/blacklist.token.model.js";
+import logger from "../utils/logger.js";
 import code from "http-status-codes";
 import jwt from 'jsonwebtoken';
 const registerCaptain = async (req, res) => {
@@ -31,7 +32,7 @@ const registerCaptain = async (req, res) => {
             vehicleNumber: captain.vehicle.vehicleNumber
         }    
         const newCaptain = await CaptainService.CreateNewCaptain(captainData);
-        console.log("Data from the controller section", newCaptain);
+        logger.log("Data from the controller section", newCaptain);
         const token = newCaptain.generateAuthToken();
         res.status(201).json({ newCaptain, token });
 
@@ -42,7 +43,7 @@ const registerCaptain = async (req, res) => {
 const loginCaptain = async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        console.log("Error in validation, from controller");
+        logger.log("Error in validation, from controller");
         return res.status(code.BAD_GATEWAY).json({errors: errors.array()});
     }
     try {
@@ -60,14 +61,14 @@ const loginCaptain = async (req, res) => {
         res.status(code.OK).json({token , checkCaptain});
 
     } catch (error) {
-        console.log("Error in loginCaptain controller", error.message);
+        logger.log("Error in loginCaptain controller", error.message);
         res.status(code.INTERNAL_SERVER_ERROR).json({message: error.message});
     }
 };
 const logoutCaptain = async (req, res) => {
     res.clearCookie("token");
     const token = req.cookies.token || req.header('Authorization')?.split(' ')[1];
-    console.log("Token from the logoutCaptain controller", token);
+    logger.log("Token from the logoutCaptain controller", token);
     await blacklistTokenModel.create({token: token});
     res.status(code.OK).json({message: "Logged out successfully"});
 };

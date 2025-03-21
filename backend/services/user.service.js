@@ -1,7 +1,7 @@
 import userModel from "../models/user.model.js";
 const CreateNewUser = async ( user) => {
     try {
-        // console.log("Data from the service section" , user);
+        // logger.log("Data from the service section" , user);
         if (!user.firstname || !user.lastname || !user.email || !user.password) {
             throw new Error("Please provide all the required fields: firstname, lastname, email, and password.");
         }
