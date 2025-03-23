@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import logger from "../utils/logger.js";
 dotenv.config();
 const userSchema = new mongoose.Schema({
     name: {
@@ -44,7 +45,7 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
     try {
         return await bcrypt.compare(enteredPassword, this.password);
       } catch (error) {
-        console.error("Error comparing passwords:", error.message);
+        logger.error("Error comparing passwords:", error.message);
         return false;
       }
 }
