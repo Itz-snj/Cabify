@@ -76,7 +76,7 @@ This is a full-stack project for a cab booking system. It includes both the fron
 ## Project Structure
 
 ```
-FullStack1/
+CABIFY/
 ├── backend/
 │   ├── controllers/
 │   │   ├── user.controller.js
@@ -93,35 +93,52 @@ FullStack1/
 │   │   ├── user.routes.js
 │   │   └── captain.routes.js
 │   ├── services/
+│   │   ├── captain.service.js
 │   │   └── user.service.js
+│   ├── utils/
+│   │   └── logger.js
 │   ├── .env
+│   ├── .gitignore
 │   ├── app.js
 │   ├── server.js
 │   └── package.json
 │
 ├── frontend/
-│   ├── public/
-│   │   └── index.html
+|   |
+|   │── api/
+│   |    └── api.js               # API-related functions
+|   │── lib/
+│   |    └──utils.js 
 │   ├── src/
-│   │   ├── api/
-│   │   │   └── api.js
+│   │   │  
 │   │   ├── components/
-│   │   │   ├── signup.jsx
-│   │   │   └── ui/
-│   │   │       ├── input.jsx
-│   │   │       └── label.jsx
-│   │   ├── lib/
-│   │   │   └── utils.js
+│   │   │    ├── BasicHome.jsx
+│   │   │    ├── footer.jsx
+│   │   │    ├── navbar.jsx
+│   │   │    └── signup.jsx
 │   │   ├── pages/
-│   │   │   └── UserSignUp.jsx
+│   │   │    ├── CaptainLogin.jsx
+│   │   │    ├── CaptainSignup.jsx
+│   │   │    ├── Home.jsx
+│   │   │    ├── UserLogin.jsx
+│   │   │    └── UserSignup.jsx   
+│   │   ├── ui/
+│   │   │    ├── input.jsx
+│   │   │    └── label.jsx
+│   │   ├── App.css
 │   │   ├── App.jsx
+│   │   ├── index.css
 │   │   └── main.jsx
 │   ├── .env
+│   ├── .gitignore
 │   ├── index.html
+│   ├── eslint.config.js
 │   ├── package.json
 │   ├── tailwind.config.js
 │   └── vite.config.js
 │
+├── package.json
+├── .gitignore
 └── README.md
 ```
 
