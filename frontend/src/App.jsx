@@ -6,7 +6,7 @@ import UserSignUp from './pages/UserSignUp';
 import CaptainLogin from './pages/CaptainLogin';
 import CaptainSignUp from './pages/CaptainSignup';
 import About from './pages/About';
-
+import Notfound from './pages/404';
 function App() {
   return (
     <div>
@@ -17,6 +17,7 @@ function App() {
         <Route path="/captain-login" element={<CaptainLogin />} />
         <Route path="/captain-signup" element={<CaptainSignUp />} />
         <Route path="/about" element={<About />} /> 
+        <Route path ="*" element ={<Notfound/>}/>
       </Routes>
     </div>
   );  
