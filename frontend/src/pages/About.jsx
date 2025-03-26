@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import BackToTopButton from "../components/BackToTopButton";
 
 const About = () => {
   return (
@@ -74,6 +75,7 @@ const About = () => {
           Get Started
         </Link>
       </motion.div>
+      <BackToTopButton />
     </div>
   );
 };
