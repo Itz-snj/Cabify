@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import BackToTopButton from "../components/BackToTopButton";
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -75,7 +74,7 @@ export default function ContactUs() {
       </div>
 
       <Footer />
-      <BackToTopButton />
+      
     </div>
   );
 }
