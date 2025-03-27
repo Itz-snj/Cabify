@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { logoutUser } from "../../api/api";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
+    const checkAuth = () => {
+        const cookies = document.cookie.split("; ");
+        const authCookie = cookies.find(row => row.startsWith("token="));
+        setIsLoggedIn(!!authCookie);
+    };
+
+    useEffect(() => {
+        checkAuth(); 
+
+        window.addEventListener("storage", checkAuth);
+        return () => window.removeEventListener("storage", checkAuth);
+    }, []); 
+    const handleLogout = async () => {
+        await logoutUser(); 
+        setTimeout(() => {
+            checkAuth(); 
+        }, 100);
     };
 
     return (
@@ -27,14 +44,28 @@ const Navbar = () => {
                             <li><a href="/contact" className="text-gray-300 hover:text-white transition-colors duration-300">Contact</a></li>
                         </ul>
                         <div>
-                            <a href="/signup" className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300">Get Started</a>
+                            {isLoggedIn ? (
+                                <button 
+                                    onClick={handleLogout}
+                                    className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-colors duration-300"
+                                >
+                                    Logout
+                                </button>
+                            ) : (
+                                <a 
+                                    href="/signup"
+                                    className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300"
+                                >
+                                    Get Started
+                                </a>
+                            )}
                         </div>
                     </div>
 
                     {/* Mobile Menu Button */}
                     <button 
                         className="md:hidden text-gray-300 hover:text-white"
-                        onClick={toggleMenu}
+                        onClick={() => setIsOpen(!isOpen)}
                     >
                         <svg className="w-6 h-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                             {isOpen ? (
@@ -54,7 +85,18 @@ const Navbar = () => {
                             <a href="/about" className="block px-3 py-2 text-gray-300 hover:text-white transition-colors duration-300">About</a>
                             <a href="/services" className="block px-3 py-2 text-gray-300 hover:text-white transition-colors duration-300">Services</a>
                             <a href="/contact" className="block px-3 py-2 text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
-                            <a href="/UserLogin" className="block px-3 py-2 text-blue-500 hover:text-blue-400 transition-colors duration-300">Get Started</a>
+                            {isLoggedIn ? (
+                                <button 
+                                    onClick={handleLogout}
+                                    className="block w-full text-left px-3 py-2 text-red-500 hover:text-red-400 transition-colors duration-300"
+                                >
+                                    Logout
+                                </button>
+                            ) : (
+                                <a href="/signup" className="block px-3 py-2 text-blue-500 hover:text-blue-400 transition-colors duration-300">
+                                    Get Started
+                                </a>
+                            )}
                         </div>
                     </div>
                 )}
