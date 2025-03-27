@@ -7,6 +7,7 @@ import CaptainLogin from './pages/CaptainLogin';
 import CaptainSignUp from './pages/CaptainSignup';
 import About from './pages/About';
 import ContactUs from './pages/Contact';
+import Services from './pages/Services';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/captain-signup" element={<CaptainSignUp />} />
         <Route path="/about" element={<About />} /> 
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/services" element={<Services />} />
       </Routes>
     </div>
   );  
