@@ -48,14 +48,16 @@ const loginCaptain = async (req, res) => {
     }
     try {
         const {email , password} = req.body;
+        console.log(email, password);
         const checkCaptain = await captainModel.findOne({email: email}).select("+password");
+        console.log(checkCaptain);
         if(!checkCaptain){
             return res.status(code.BAD_REQUEST).json({message: "Invalid email or password"});
         }
-        const rehasher = await checkCaptain.matchPassword(password);
-        if(!rehasher){
+         const rehasher = await checkCaptain.matchPassword(password);
+         if(!rehasher){
             return res.status(code.BAD_REQUEST).json({message: "Invalid email or password"});
-        }
+         }
         const token = checkCaptain.generateAuthToken();
         res.cookie("token", token);
         res.status(code.OK).json({token , checkCaptain});

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -35,7 +35,7 @@ const CaptainSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`${process.env.URL}/captain/register`, formData);
+      const { data } = await axios.post(`${process.env.URI}/captain/register`, formData);
       toast.success("Signup successful!");
       setTimeout(() => navigate("/captain-login"), 2000);
     } catch (error) {
@@ -164,7 +164,7 @@ const CaptainSignup = () => {
       </div>
 
      
-      <ToastContainer position="top-right" autoClose={3000} />
+       <ToastContainer position="top-right" autoClose={3000} /> 
     </div>
   );
 };
