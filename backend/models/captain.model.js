@@ -81,8 +81,8 @@ const captainSchema = new mongoose.Schema({
     }
 }); 
 captainSchema.methods.generateAuthToken = function() {
-    return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN,
+    return jwt.sign({id: this._id}, 'process.env.JWT_SECRET', {
+        expiresIn: 400000,
     });
 }
 captainSchema.statics.hashPassword = async function(password) {
