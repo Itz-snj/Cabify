@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { cn } from '../../lib/utils';
-
+import Navbar from '../components/navbar';
 const UserLogin = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
@@ -24,7 +24,8 @@ const UserLogin = () => {
         });
     };
 
-    return (
+    return (<>
+    <Navbar/>
         <div className="min-h-screen w-full relative flex items-center justify-center overflow-hidden">
             <div 
                 className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -60,6 +61,7 @@ const UserLogin = () => {
             </div>
             <ToastContainer  position='top-right' autoClose={3000}/>  
         </div>
+        </>
     );
 };
 
