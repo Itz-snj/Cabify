@@ -1,1 +1,61 @@
 @import "tailwindcss";
+
+.bg1{
+    position: relative;
+    background: url('./assets/AboutHeroImg.jpg') no-repeat center center/cover;
+    z-index: 10;
+    background-attachment: fixed;
+}
+
+.bg1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* h1 - Transparent Text with Background Clip */
+.data h1 {
+    font-size: 5rem;
+    font-weight: bold;
+}
+
+/* h2 - Subheading with Shadow */
+.data h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* h3 - Secondary Subheading */
+.data h3 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* h4 - Smaller Heading */
+.data h4 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* p - Paragraph/Text */
+.data p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+.smallData h4 {
+    font-size: 1.3rem;
+}
+
+.smallData p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
