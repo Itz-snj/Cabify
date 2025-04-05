@@ -1,8 +1,10 @@
 import React from 'react';
 import { SignupFormDemo } from '../components/signup';
-
+import Navbar from '../components/navbar';
 const UserSignUp = () => {
     return (
+        <>
+        <Navbar/>
         <div className="min-h-screen w-full relative flex items-center justify-center overflow-hidden">
             <div 
                 className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -21,6 +23,7 @@ const UserSignUp = () => {
                 <SignupFormDemo />
             </div>
         </div>
+        </>
     );
 };
 
