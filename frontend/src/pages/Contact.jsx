@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -159,8 +158,6 @@ export default function ContactUs() {
           </div>
         </motion.div>
       </motion.div>
-
-      <Footer />
     </div>
   );
 }

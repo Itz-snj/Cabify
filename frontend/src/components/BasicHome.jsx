@@ -69,7 +69,7 @@ const BasicHome = () => {
     };
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen mt-13">
             {/* Hero Section */}
             <section className="relative h-screen">
                 <div className="absolute inset-0">
