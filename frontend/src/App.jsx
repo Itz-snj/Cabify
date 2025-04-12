@@ -8,10 +8,14 @@ import CaptainSignUp from './pages/CaptainSignup';
 import About from './pages/About';
 import ContactUs from './pages/Contact';
 import Services from './pages/Services';
+import Navbar from './components/navbar';
+import Footer from './components/footer';
+import BackToTopButton from './components/BackToTopButton';
 
 function App() {
   return (
     <div>
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<UserLogin />} />
@@ -22,6 +26,8 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/services" element={<Services />} />
       </Routes>
+      <Footer/>
+      <BackToTopButton/>
     </div>
   );  
 }
