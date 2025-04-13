@@ -1,6 +1,18 @@
 {
   "dependencies": {
+    "concurrently": "^9.1.2",
     "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.5.2"
-  }
+  },
+  "name": "cabify",
+  "version": "1.0.0",
+  "description": "It is an open source event, make sure to follow the issue tags before commiting and also make sure to join the discord server.\r https://discord.gg/A9QpVUazNC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
