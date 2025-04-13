@@ -1,6 +1,73 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const BasicHome = () => {
+    // Animation variants
+    const fadeIn = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.6 }
+        }
+    };
+
+    const staggerContainer = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2
+            }
+        }
+    };
+
+    const heroTextVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: (custom) => ({
+            opacity: 1,
+            y: 0,
+            transition: { 
+                delay: custom * 0.2,
+                duration: 0.8,
+                ease: "easeOut"
+            }
+        })
+    };
+
+    const cardVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { 
+                duration: 0.5
+            }
+        },
+        hover: { 
+            y: -10,
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+            transition: { 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20
+            }
+        }
+    };
+
+    const serviceCardVariants = {
+        hidden: { opacity: 0, scale: 0.8 },
+        visible: { 
+            opacity: 1, 
+            scale: 1,
+            transition: { duration: 0.5 }
+        },
+        hover: { 
+            scale: 1.03,
+            transition: { type: "spring", stiffness: 300, damping: 20 }
+        }
+    };
+
     return (
         <div className="min-h-screen mt-13">
             {/* Hero Section */}
@@ -13,66 +80,178 @@ const BasicHome = () => {
                     />
                     <div className="absolute inset-0 bg-black opacity-50"></div>
                 </div>
-                <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
+                <motion.div 
+                    className="relative max-w-7xl mx-auto px-4 h-full flex items-center"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={staggerContainer}
+                >
                     <div className="text-white space-y-6">
-                        <h1 className="text-4xl md:text-6xl font-bold">Your Ride, Your Way</h1>
-                        <p className="text-xl md:text-2xl max-w-2xl">Experience comfortable and safe rides with Cabify. Book your next journey in seconds.</p>
-                        <button className="bg-blue-500 text-white px-8 py-3 rounded-full text-lg hover:bg-blue-600 transition duration-300">
+                        <motion.h1 
+                            className="text-4xl md:text-6xl font-bold"
+                            custom={0}
+                            variants={heroTextVariants}
+                        >
+                            Your Ride, Your Way
+                        </motion.h1>
+                        <motion.p 
+                            className="text-xl md:text-2xl max-w-2xl"
+                            custom={1}
+                            variants={heroTextVariants}
+                        >
+                            Experience comfortable and safe rides with Cabify. Book your next journey in seconds.
+                        </motion.p>
+                        <motion.button 
+                            className="bg-blue-500 text-white px-8 py-3 rounded-full text-lg hover:bg-blue-600 transition duration-300"
+                            custom={2}
+                            variants={heroTextVariants}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
                             Book Now
-                        </button>
+                        </motion.button>
                     </div>
-                </div>
+                </motion.div>
             </section>
 
             {/* Features Section */}
             <section className="py-20 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-4">
-                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Why Choose Cabify?</h2>
+                <motion.div 
+                    className="max-w-7xl mx-auto px-4"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={fadeIn}
+                >
+                    <motion.h2 
+                        className="text-3xl md:text-4xl font-bold text-center mb-12"
+                        initial={{ opacity: 0, y: -20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        Why Choose Cabify?
+                    </motion.h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {features.map((feature, index) => (
-                            <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                                <div className="text-blue-500 mb-4">{feature.icon}</div>
+                            <motion.div 
+                                key={index} 
+                                className="bg-white p-6 rounded-lg shadow-lg"
+                                variants={cardVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                whileHover="hover"
+                                viewport={{ once: true, amount: 0.2 }}
+                                custom={index}
+                                transition={{ delay: index * 0.1 }}
+                            >
+                                <motion.div 
+                                    className="text-blue-500 mb-4"
+                                    whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                                    transition={{ duration: 0.5 }}
+                                >
+                                    {feature.icon}
+                                </motion.div>
                                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
                                 <p className="text-gray-600">{feature.description}</p>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
-                </div>
+                </motion.div>
             </section>
 
             {/* Services Section */}
             <section className="py-20">
-                <div className="max-w-7xl mx-auto px-4">
-                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Services</h2>
+                <motion.div 
+                    className="max-w-7xl mx-auto px-4"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={fadeIn}
+                >
+                    <motion.h2 
+                        className="text-3xl md:text-4xl font-bold text-center mb-12"
+                        initial={{ opacity: 0, y: -20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        Our Services
+                    </motion.h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {services.map((service, index) => (
-                            <div key={index} className="group relative overflow-hidden rounded-lg">
-                                <img src={service.image} alt={service.title} className="w-full h-64 object-cover transition duration-300 group-hover:scale-110"/>
+                            <motion.div 
+                                key={index} 
+                                className="group relative overflow-hidden rounded-lg"
+                                variants={serviceCardVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                whileHover="hover"
+                                viewport={{ once: true, amount: 0.2 }}
+                                custom={index}
+                                transition={{ delay: index * 0.1 }}
+                            >
+                                <img 
+                                    src={service.image} 
+                                    alt={service.title} 
+                                    className="w-full h-64 object-cover transition duration-300 group-hover:scale-110"
+                                />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
                                 <div className="absolute bottom-0 left-0 p-6">
                                     <h3 className="text-white text-xl font-semibold">{service.title}</h3>
                                     <p className="text-gray-200 mt-2">{service.description}</p>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
-                </div>
+                </motion.div>
             </section>
 
             {/* CTA Section */}
             <section className="bg-blue-600 py-20">
-                <div className="max-w-7xl mx-auto px-4 text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Get Started?</h2>
-                    <p className="text-xl text-white/90 mb-8">Join thousands of satisfied customers who trust Cabify for their daily rides.</p>
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <button className="bg-white text-blue-600 px-8 py-3 rounded-full text-lg hover:bg-gray-100 transition duration-300">
+                <motion.div 
+                    className="max-w-7xl mx-auto px-4 text-center"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={staggerContainer}
+                >
+                    <motion.h2 
+                        className="text-3xl md:text-4xl font-bold text-white mb-6"
+                        variants={heroTextVariants}
+                        custom={0}
+                    >
+                        Ready to Get Started?
+                    </motion.h2>
+                    <motion.p 
+                        className="text-xl text-white/90 mb-8"
+                        variants={heroTextVariants}
+                        custom={1}
+                    >
+                        Join thousands of satisfied customers who trust Cabify for their daily rides.
+                    </motion.p>
+                    <motion.div 
+                        className="flex flex-col sm:flex-row justify-center gap-4"
+                        variants={heroTextVariants}
+                        custom={2}
+                    >
+                        <motion.button 
+                            className="bg-white text-blue-600 px-8 py-3 rounded-full text-lg hover:bg-gray-100 transition duration-300"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
                             Download App
-                        </button>
-                        <button className="border-2 border-white text-white px-8 py-3 rounded-full text-lg hover:bg-white hover:text-blue-600 transition duration-300">
+                        </motion.button>
+                        <motion.button 
+                            className="border-2 border-white text-white px-8 py-3 rounded-full text-lg hover:bg-white hover:text-blue-600 transition duration-300"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
                             Learn More
-                        </button>
-                    </div>
-                </div>
+                        </motion.button>
+                    </motion.div>
+                </motion.div>
             </section>
         </div>
     );
